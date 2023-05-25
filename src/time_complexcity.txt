@@ -1,0 +1,171 @@
+Question 1. Analyze the time complexity of the following Java code and suggest a way to improve it:
+int sum = 0;
+for(int i = 1; i <= n; i++) {
+for(int j = 1; j <= i; j++) {
+sum++;
+}
+}
+Ans: The given Java code calculates the sum of all the numbers from 1 to n using nested loops. Let's analyze its time complexity:
+
+The outer loop runs n times, and for each iteration of the outer loop, the inner loop runs i times. Therefore, the total number of iterations of the inner loop can be expressed as the sum of the first n natural numbers:
+
+1 + 2 + 3 + ... + n = n * (n + 1) / 2
+
+Hence, the time complexity of the given code is O(n^2).
+
+To improve the time complexity, we can optimize the code by using a mathematical formula to calculate the sum of numbers from 1 to n instead of using nested loops. The sum of the first n natural numbers can be calculated using the formula:
+
+sum = (n * (n + 1)) / 2
+
+By directly calculating the sum using this formula, we can achieve a time complexity of O(1), significantly improving the efficiency of the code. Here's the updated code:
+
+int sum = (n * (n + 1)) / 2;
+
+This code will provide the same result as the original code but with much better performance.
+
+Question 2: Find the value of T(2) for the recurrence relation T(n) = 3T(n-1) + 12n, given that T(0) = 5.
+Ans:Given that T(0) = 5, let's calculate T(1) and T(2)
+
+T(1) = 3T(1-1) + 12(1)
+= 3T(0) + 12
+= 3(5) + 12
+= 15 + 12
+= 27
+
+T(2) = 3T(2-1) + 12(2)
+= 3T(1) + 24
+= 3(27) + 24
+= 81 + 24
+= 105
+
+Therefore, T(2) = 105.
+
+Question 3: Given a recurrence relation, solve it using a substitution method. Relation : T(n) = T(n - 1) + c.
+Ans:To solve the recurrence relation T(n) = T(n - 1) + c using the substitution method, we can recursively substitute the expression for T(n - 1) into the equation until we reach a base case.
+
+Let's expand the relation step by step:
+
+T(n) = T(n - 1) + c
+     = [T(n - 2) + c] + c        (substituting T(n - 1))
+     = T(n - 2) + 2c
+     = [T(n - 3) + c] + 2c        (substituting T(n - 2))
+     = T(n - 3) + 3c
+     = ...
+     = T(n - k) + kc
+
+We continue this process until we reach a base case. Let's assume the base case is T(0), which will allow us to express T(n) in terms of T(0):
+
+T(n) = T(n - k) + kc
+     = T(0) + nc
+
+Here, k = n, and we substituted T(0) = T(n - n) = T(n), so we are left with T(0) + nc.
+
+Therefore, the solution to the given recurrence relation T(n) = T(n - 1) + c using the substitution method is T(n) = T(0) + nc.
+
+Question 4: Given a recurrence relation:
+T(n) = 16T(n/4) + n2logn Find the time complexity of this relation using the master theorem.
+Ans:To find the time complexity of the recurrence relation T(n) = 16T(n/4) + n^2logn using the Master Theorem, we need to compare the given relation with the standard form of the Master Theorem:
+
+T(n) = aT(n/b) + f(n)
+
+In the given relation, we have:
+a = 16
+b = 4
+f(n) = n^2logn
+
+Let's calculate the values of a/b and f(n/logba):
+
+a/b = 16/4 = 4
+
+f(n/logba) = n^2logn / log4(16)
+           = n^2logn / 2
+           = (1/2) * n^2logn
+
+Now, we compare f(n) with f(n/logba):
+
+f(n) = n^2logn
+f(n/logba) = (1/2) * n^2logn
+
+Since f(n) = n^2logn and f(n/logba) = (1/2) * n^2logn, we can conclude that f(n) is not asymptotically larger or smaller than f(n/logba). Hence, we fall into the case 2 of the Master Theorem.
+
+According to case 2 of the Master Theorem, if f(n) is Θ(n^c log^k n) where k ≥ 0 and c > logba, then the time complexity of the recurrence relation T(n) = aT(n/b) + f(n) is Θ(n^c log^(k+1) n).
+
+In our case, f(n) = n^2logn and c = 2 > logba = log4(16) = 2. Since c is not greater than logba, we cannot directly apply case 2 of the Master Theorem.
+
+To further analyze the time complexity, we can compare f(n) with n^c. Here, c = 2 and f(n) = n^2logn. As logn grows slower than any positive power of n, we can say that f(n) is asymptotically smaller than n^2. Therefore, the overall time complexity of the given recurrence relation is Θ(n^2).
+
+In summary, the time complexity of T(n) = 16T(n/4) + n^2logn using the Master Theorem is Θ(n^2).
+
+Question 5: Solve the following recurrence relation using recursion tree method
+T(n) = 2T(n/2) + n
+Ans:To solve the given recurrence relation T(n) = 2T(n/2) + n using the recursion tree method, we can construct a tree where each level represents a recursive call, and the nodes at each level represent the subproblems.
+
+Let's visualize the recursion tree for this relation:
+
+```
+                     T(n)
+                    /    \
+               T(n/2)    T(n/2)
+               /    \    /    \
+         T(n/4)  T(n/4) T(n/4) T(n/4)
+          /  \     /  \   /  \    /  \
+      T(n/8) T(n/8) ...   ...  T(n/8) T(n/8)
+```
+
+In each level of the tree, we have two subproblems, each of size n/2. The branching factor is 2 because of the recurrence relation T(n) = 2T(n/2). The work done at each level is n.
+
+Now, let's analyze the tree. At the bottom level, we have subproblems of size n/2^k, where k is the height of the tree.
+
+The height of the tree is log(n) because at each level, the problem size is halved until it reaches the base case of T(1).
+
+So, we have a total of log(n) levels in the tree.
+
+At each level, the work done is n because of the n term in the recurrence relation.
+
+Therefore, the total work done at each level of the tree is n * log(n).
+
+Now, let's sum up the work done at each level to find the overall time complexity:
+
+Total work = n * log(n) + n/2 * log(n/2) + n/4 * log(n/4) + ... + 1 * log(1)
+
+This can be simplified using the property log(a) - log(b) = log(a/b):
+
+Total work = n * log(n) + n/2 * log(n) + n/4 * log(n) + ... + 1 * log(n)
+           = (1 + 1/2 + 1/4 + ... + 1/n) * n * log(n)
+           = O(n log(n) log(n))
+
+Therefore, the time complexity of the given recurrence relation T(n) = 2T(n/2) + n using the recursion tree method is O(n log(n) log(n)).
+
+Question 6. T(n) = 2T(n/2) + K, Solve using Recurrence tree method.
+Ans: To solve the given recurrence relation T(n) = 2T(n/2) + K using the recursion tree method, we can construct a tree where each level represents a recursive call, and the nodes at each level represent the subproblems.
+
+Let's visualize the recursion tree for this relation:
+
+```
+                  T(n)
+                /      \
+         T(n/2) + K   T(n/2) + K
+          /   \        /    \
+ T(n/4) + K T(n/4) + K T(n/4) + K T(n/4) + K
+```
+
+In each level of the tree, we have two subproblems, each of size n/2. The branching factor is 2 because of the recurrence relation T(n) = 2T(n/2). At each level, there is an additional term of K added.
+
+Now, let's analyze the tree. At the bottom level, we have subproblems of size n/2^k, where k is the height of the tree.
+
+The height of the tree is log(n) because at each level, the problem size is halved until it reaches the base case of T(1).
+
+So, we have a total of log(n) levels in the tree.
+
+At each level, the work done is K because of the K term in the recurrence relation.
+
+Therefore, the total work done at each level of the tree is K * 2^(log(n)) = K * n.
+
+Now, let's sum up the work done at each level to find the overall time complexity:
+
+Total work = K * n + K * (n/2) + K * (n/4) + ... + K * 1
+           = K * (n + n/2 + n/4 + ... + 1)
+           = K * (2n)
+           = O(n)
+
+Therefore, the time complexity of the given recurrence relation T(n) = 2T(n/2) + K using the recursion tree method is O(n).
